@@ -33,7 +33,7 @@ int32 UBTComposite_ContinueSequence::GetNextChildHandler(FBehaviorTreeSearchData
 		}
 
 		if (LastResult == EBTNodeResult::Failed && NodeMemory->Tries < MaxTries) {
-			NodeMemory->SequenceOverride = (ContinueFromFailedChild ? PrevChild : PrevChild + 1);
+			NodeMemory->SequenceOverride = (ContinueFromLastChild ? PrevChild : PrevChild + 1);
 			NodeMemory->Tries += 1;
 		}
 		else {

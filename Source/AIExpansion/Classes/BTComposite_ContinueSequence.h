@@ -16,6 +16,14 @@ struct FBTContinueSequenceMemory : FBTCompositeMemory
 	uint8 Tries;
 };
 
+
+/**
+ * Continue Sequence composite node.
+ * Continue Sequence Nodes execute their children from left to right, and will stop executing its children when one of their children fails.
+ * If a child fails, then the Sequence fails. If all the Sequence's children succeed, then the Sequence succeeds.
+ * Additionaly, When the Sequence fails, the Child index will be saved and the next execution will continue from that position or the next child
+ * depending on the settings, for an amount defined in MaxTries.
+ */
 UCLASS()
 class AIEXPANSION_API UBTComposite_ContinueSequence : public UBTCompositeNode
 {
@@ -23,10 +31,10 @@ class AIEXPANSION_API UBTComposite_ContinueSequence : public UBTCompositeNode
 
 	int32 GetNextChildHandler(struct FBehaviorTreeSearchData& SearchData, int32 PrevChild, EBTNodeResult::Type LastResult) const ;
 
-	UPROPERTY(EditAnywhere)
-	bool ContinueFromFailedChild;
+	UPROPERTY(EditAnywhere, Category = "Settings")
+	bool ContinueFromLastChild;
 	
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, Category = "Settings")
 	uint8 MaxTries;
 
 #if WITH_EDITOR
